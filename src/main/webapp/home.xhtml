@@ -13,13 +13,13 @@
       <h2>Hello World - hello.xhtml</h2>
       <h:form>
          Name : <h:inputText value="TestValue"/> <br/>
-         <h:commandButton value="Welcome Me" actionListener="#{helloWorld.getGhostNetStatus}"/> <br/>
-         <h:outputText value="TestValue" />
+         <h:commandButton value="Welcome Me" actionListener="#{ghostNetDAO.setGhostNet()}"/> <br/>
+         <!--h:outputText value="TestValue" /-->
       </h:form>
       <h:form>
          Name : <h:inputText value="TestValue2"/> <br/>
          <h:commandButton value="Welcome Me2" actionListener="#{helloWorld.writeMessage()}"/> <br/>
-         <h:outputText value="TestValue2" />
+         <!--h:outputText value="TestValue2" /-->
       </h:form>
       <h:body>
          <h1>Artikelverwaltung</h1>

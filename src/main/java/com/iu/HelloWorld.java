@@ -1,12 +1,13 @@
 package com.iu;
 
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
 public class HelloWorld {
 
-    private String ghostNetStatus;
-    public HelloWorld() {}
+    @Inject
+    GhostNetDAO ghostNetDAO;
 
     public String getMessage() {
         return "Hello World return!";
@@ -16,9 +17,8 @@ public class HelloWorld {
         System.out.println("Hallo Welt from HelloWorld.java");
     }
 
-    public void setGhostNet(Long id) {
-        GhostNetDAO ghostNetDAO = new GhostNetDAO();
-        ghostNetDAO.setGhostNet(id);
+    public void setGhostNet() {
+        ghostNetDAO.setGhostNet();
         System.out.println("Set Ghostnet from HelloWorld Class");
     }
 

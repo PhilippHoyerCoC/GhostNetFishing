@@ -1,17 +1,12 @@
 package com.iu;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 
-import java.util.List;
-
 @RequestScoped
-@Transactional
 @Named
-//@jakarta.ejb.Stateless
 public class GhostNetDAO {
 //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
 //    @PersistenceContext(unitName = "default")
@@ -21,17 +16,17 @@ public class GhostNetDAO {
 
 //    @PersistenceContext
 //    private EntityManager em;
-
-    public void setGhostNet(Long id) {
+    @Transactional
+    public void setGhostNet() {
         GhostNet ghostNet = new GhostNet();
-        ghostNet.setId(id);
+//        ghostNet.setId(id);
         ghostNet.setSize(23847);
         ghostNet.setStatus("Gefunden");
         System.out.println("Start setting Ghostnet from GhostNetDAO Class");
 
-        entityManager.getTransaction().begin();
+//        entityManager.getTransaction().begin();
         entityManager.persist(ghostNet);
-        entityManager.getTransaction().commit();
+//        entityManager.getTransaction().commit();
 //        entityManager.close();
 //        entityManagerFactory.close();
 
