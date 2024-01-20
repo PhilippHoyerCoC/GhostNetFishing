@@ -1,9 +1,13 @@
 package com.iu;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 //TODO: add implements Serializable?
+@Getter
+@Setter
 @Table(name = "ghostnet")
 public class GhostNet {
     
@@ -14,36 +18,21 @@ public class GhostNet {
     @Column(name="SIZE")
     private Integer size;
     @Column(name="STATUS")
-    private String status;
-//    private GhostNetStatusEnum status;
-//    @Column(name="REPORTED_DATE")
-//    @Temporal(TemporalType.DATE)
-//    private LocalDate reportedDate;
+    private GhostNetStatusEnum status;
+    @Embedded
+    @Column(name="LOCATION")
+    private Coordinates coordinates;
 
     public GhostNet() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    @Override
+    public String toString() {
+        return "GhostNet{" +
+                "id=" + id +
+                ", size=" + size +
+                ", status=" + status +
+                ", coordinates=" + coordinates +
+                '}';
     }
 }

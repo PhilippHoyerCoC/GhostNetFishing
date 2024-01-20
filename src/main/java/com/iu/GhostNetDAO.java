@@ -1,50 +1,73 @@
 package com.iu;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.inject.Named;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @RequestScoped
 @Named
+@Getter
+@Setter
 public class GhostNetDAO {
-//    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-//    @PersistenceContext(unitName = "default")
-//    EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    private String status;
+    private int size;
+    private GhostNetStatusEnum[] statusValues = GhostNetStatusEnum.values();
+    private Coordinates coordinates = new Coordinates();
+
     @PersistenceContext(unitName = "default")
     EntityManager entityManager;
 
-//    @PersistenceContext
-//    private EntityManager em;
     @Transactional
-    public void setGhostNet() {
+    public void createGhostNet(int size, GhostNetStatusEnum status) {
         GhostNet ghostNet = new GhostNet();
-//        ghostNet.setId(id);
-        ghostNet.setSize(23847);
-        ghostNet.setStatus("Gefunden");
-        System.out.println("Start setting Ghostnet from GhostNetDAO Class");
-
-//        entityManager.getTransaction().begin();
+        ghostNet.setSize(size);
+        ghostNet.setStatus(status);
+        ghostNet.setCoordinates(coordinates);
         entityManager.persist(ghostNet);
-//        entityManager.getTransaction().commit();
-//        entityManager.close();
-//        entityManagerFactory.close();
-
+        System.out.println("Ghostnet ID: " + ghostNet.getId());
+        System.out.println("Ghostnet Size: " + ghostNet.getSize());
+        System.out.println("Ghostnet Status: " + ghostNet.getStatus());
+        System.out.println("Ghostnet Coordinates: " + ghostNet.getCoordinates());
         System.out.println("Finished setting Ghostnet from GhostNetDAO Class");
     }
 
-    public String getGhostNetStatus(Integer id) {
+    @Transactional
+    public List<GhostNet> getAllGhostNets() {
+        return entityManager.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
+    }
+
+    @Transactional
+    public void printAllGhostNets() {
+        List<GhostNet> ghostNets = entityManager.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
+    }
+
+    public GhostNetStatusEnum getGhostNetStatus(Long id) {
         GhostNet ghostNet = entityManager.find(GhostNet.class, id);
         return ghostNet.getStatus();
     }
 
-//    public String getGhostNetStatus(Long id) {
-//        GhostNet ghostNet = em.find(GhostNet.class, id);
-//        return ghostNet.getStatus();
-//    }
+    public GhostNetStatusEnum[] getGhostNetStatusValues() {
+        return statusValues;
+    }
 
-//    public List<GhostNet> getAllGhostNets() {
-//        return em.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
-//    }
+    public void validateGhostNetSize(FacesContext context, UIComponent component, Object value) {
+        Integer netSize = (Integer) value;
+        if (netSize <= 0) {
+            //throw new IllegalArgumentException("Size must be greater than 0");
+            throw new ValidatorException(
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ghostnet size must be greater than 0", null)
+            );
+        }
+    }
 
 }

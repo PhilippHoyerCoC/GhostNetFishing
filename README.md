@@ -13,7 +13,7 @@ https://www.apache.org/dyn/closer.cgi/tomee/tomee-9.1.0/apache-tomee-9.1.0-plume
 The project was developed in Intellij IDEA so the .idea directory with the project
 config was added to simplify the project startup from another dev. 
 
-The dicision for a TomEE server instead of a Tomcat server is because with a
+The decision for a TomEE server instead of a Tomcat server is because with a
 Tomcat in Jakarta EE 9 you have to manually add all the JSF dependencies like
 Mojarra manually via the pom.xml and before you start configuring an application
 server manually you can just use the application server directly. The Tomcat is more
