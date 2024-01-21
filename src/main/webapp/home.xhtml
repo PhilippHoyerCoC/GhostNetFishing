@@ -17,6 +17,14 @@
          Name : <h:inputText value="TestValue3"/> <br/>
          <h:commandButton value="Get Ghostnet" actionListener="#{ghostNetDAO.printAllGhostNets()}"/> <br/>
       </h:form>
+      <h:form>
+         Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
+         Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.size}" converter="ghostNetSizeConverter" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
+         Status: <h:selectOneMenu value="#{ghostNetDAO.status}">
+                     <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
+                  </h:selectOneMenu> <br/>
+         <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
+      </h:form>
       <h:dataTable value="#{ghostNetDAO.allGhostNets}" var="ghostNet"
          styleClass="ghostnet-table"
          headerClass="ghostnet-table-header"
@@ -48,13 +56,5 @@
             <h:outputText value="#{ghostNet.coordinates.longitude}" />
          </h:column>
       </h:dataTable>
-      <h:form>
-         Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.coordinates.latitude}" /> <h:inputText id="longitude" value="#{ghostNetDAO.coordinates.longitude}" /> <br/>
-         Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.size}" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
-         Status: <h:selectOneMenu value="#{ghostNetDAO.status}">
-                     <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
-                  </h:selectOneMenu> <br/>
-         <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
-      </h:form>
    </h:body>
 </html>
