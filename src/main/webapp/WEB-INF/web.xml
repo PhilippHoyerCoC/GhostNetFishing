@@ -23,12 +23,25 @@
     <param-value>true</param-value>
   </context-param>
   <welcome-file-list>
+    <welcome-file>faces/login.xhtml</welcome-file>
+  </welcome-file-list>
+
+  <filter>
+      <filter-name>AuthorizationFilter</filter-name>
+      <filter-class>com.iu.AuthorizationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>AuthorizationFilter</filter-name>
+      <url-pattern>/ghostnet.xhtml</url-pattern>
+  </filter-mapping>
+
+  <!--
+
+  <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.htm</welcome-file>
   </welcome-file-list>
-
-  <!--
      FacesServlet is main servlet responsible to handle all request.
      It acts as central controller.
      This servlet initializes the JSF components before the JSP is displayed.

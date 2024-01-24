@@ -42,6 +42,20 @@ public class GhostNetDAO {
     }
 
     @Transactional
+    public void createGhostNetWithoutStatus(int size) {
+        GhostNet ghostNet = new GhostNet();
+        ghostNet.setSize(size);
+        ghostNet.setStatus(GhostNetStatusEnum.REPORTED);
+        ghostNet.setCoordinates(coordinates);
+        entityManager.persist(ghostNet);
+        System.out.println("Ghostnet ID: " + ghostNet.getId());
+        System.out.println("Ghostnet Size: " + ghostNet.getSize());
+        System.out.println("Ghostnet Status: " + ghostNet.getStatus());
+        System.out.println("Ghostnet Coordinates: " + ghostNet.getCoordinates());
+        System.out.println("Finished setting Ghostnet from GhostNetDAO Class");
+    }
+
+    @Transactional
     public List<GhostNet> getAllGhostNets() {
         return entityManager.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
     }

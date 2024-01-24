@@ -24,7 +24,7 @@ Start up the database container:
 docker run -p 3307:3306 --name=ghostnet-db --network=ghostnet -e MYSQL_ROOT_PASSWORD=geheim 
 -e MYSQL_USER=ghostnet -e MYSQL_PASSWORD=geheim -e MYSQL_DATABASE=ghostnet -d mysql/mysql-server:latest
 
-Connect to the database: mysql -h localhost -P 3306 --protocol=tcp -u ghostnet -p
+Connect to the database: mysql -h localhost -P 3307 --protocol=tcp -u ghostnet -p
 
 Adjust TomEE: 
 - Adjust tomee.xml in conf folder of tomee
