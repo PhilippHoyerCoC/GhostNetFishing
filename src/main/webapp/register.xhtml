@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Register!</title>
+</h:head>
+<h:body>
+    <h1>Register</h1>
+    <h:form>
+        Username: <h:inputText id="username" value="#{userDAO.username}" validator="usernameValidator" /> <br/>
+        <br/>
+        Password: <h:inputSecret id="password" value="#{userDAO.password}" /> <br/>
+        <br/>
+        Forename: <h:inputText id="forename" value="#{userDAO.forename}" /> <br/>
+        <br/>
+        Lastname: <h:inputText id="surname" value="#{userDAO.lastname}" /> <br/>
+        <br/>
+        Email: <h:inputText id="email" value="#{userDAO.email}" /> <br/>
+        <br/>
+        Phone: <h:inputText id="phone" value="#{userDAO.phone}" /> <br/>
+        <h:commandButton value="Register" actionListener="#{userDAO.createUser(userDAO.username, userDAO.password, userDAO.forename, userDAO.lastname, userDAO.email, userDAO.phone)}" /> <br/>
+    </h:form>
+    <br/>
+    <br/>
+    <h:button value="Want to Login" outcome="login" styleClass="ui-button-primary" /> <br/>
+    <br/>
+    <h:button value="Return to start page" outcome="index" styleClass="ui-button-primary" /> <br/>
+    <h:messages />
+</h:body>
+</html>
