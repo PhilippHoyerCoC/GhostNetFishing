@@ -1,5 +1,13 @@
 package com.iu;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -21,13 +29,28 @@ public class UserDAO {
     private String forename;
     private String lastname;
     private String email;
-    private String phone;
+    private PhoneNumber phone = new PhoneNumber();
+
+    private List<Country> countries;
+
+    @PostConstruct
+    public void init() {
+        InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/CountryCodes.json");
+        // parse the JSON and create a list of Country objects
+        System.out.println("is: " + is);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            countries = mapper.readValue(is, new TypeReference<List<Country>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @PersistenceContext(unitName = "default")
     EntityManager entityManager;
 
     @Transactional
-    public void createUser(String userName, String password, String forename, String lastname, String email, String phone) {
+    public void createUser(String userName, String password, String forename, String lastname, String email) {
         User user = new User();
         user.setUserName(userName);
         user.setPassword(password);

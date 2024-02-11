@@ -25,8 +25,9 @@ public class User {
     private String lastname;
     @Column(name="EMAIL")
     private String email;
+    @Embedded
     @Column(name="PHONE")
-    private String phone;
+    private PhoneNumber phone;
 
     public User() {
     }
