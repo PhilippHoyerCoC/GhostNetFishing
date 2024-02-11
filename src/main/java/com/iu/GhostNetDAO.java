@@ -24,6 +24,8 @@ public class GhostNetDAO {
     private GhostNetStatusEnum[] statusValues = GhostNetStatusEnum.values();
     private Coordinates coordinates = new Coordinates();
 
+    private GhostNetStatusEnum selectedStatus;
+
     @PersistenceContext(unitName = "default")
     EntityManager entityManager;
 
@@ -63,6 +65,16 @@ public class GhostNetDAO {
     @Transactional
     public void printAllGhostNets() {
         List<GhostNet> ghostNets = entityManager.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
+    }
+
+    public List<GhostNet> filteredGhostNets() {
+        if (selectedStatus == null) {
+            return getAllGhostNets();
+        } else {
+            TypedQuery<GhostNet> query = entityManager.createQuery("SELECT g FROM GhostNet g WHERE g.status = :status", GhostNet.class);
+            query.setParameter("status", selectedStatus);
+            return query.getResultList();         
+        }
     }
 
     public GhostNetStatusEnum getGhostNetStatus(Long id) {

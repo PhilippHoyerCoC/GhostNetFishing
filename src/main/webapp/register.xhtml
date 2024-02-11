@@ -12,17 +12,17 @@
     <h:form>
         Username: <h:inputText id="username" value="#{userDAO.username}" validator="usernameValidator" /> <br/>
         <br/>
-        Password: <h:inputSecret id="password" value="#{userDAO.password}" /> <br/>
+        Password: <h:inputSecret id="password" value="#{userDAO.password}" validator="passwordValidator" /> <br/>
         <br/>
-        Forename: <h:inputText id="forename" value="#{userDAO.forename}" /> <br/>
+        Forename: <h:inputText id="forename" value="#{userDAO.forename}" validator="nameValidator" /> <br/>
         <br/>
-        Lastname: <h:inputText id="surname" value="#{userDAO.lastname}" /> <br/>
+        Lastname: <h:inputText id="surname" value="#{userDAO.lastname}" validator="nameValidator" /> <br/>
         <br/>
-        Email: <h:inputText id="email" value="#{userDAO.email}" /> <br/>
+        Email: <h:inputText id="email" value="#{userDAO.email}" validator="emailValidator" /> <br/>
         <br/>
         Phone: 
         <h:selectOneMenu id="countryCode" value="#{userDAO.phone.countryCode}" converter="phoneNumberConverter">
-            <f:selectItems value="#{userDAO.countries}" var="country" itemValue="#{country.dialCode}" itemLabel="#{country.name}" />
+            <f:selectItems value="#{userDAO.countries}" var="country" itemValue="#{country.dialCode}" itemLabel="(#{country.dialCode}) #{country.name}" />
         </h:selectOneMenu>
         <h:inputText id="phone" value="#{userDAO.phone.phone}" converter="phoneNumberConverter" /> <br/>
         <h:commandButton value="Register" actionListener="#{userDAO.createUser(userDAO.username, userDAO.password, userDAO.forename, userDAO.lastname, userDAO.email)}" /> <br/>

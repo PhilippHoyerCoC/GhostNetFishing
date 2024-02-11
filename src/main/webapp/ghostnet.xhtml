@@ -10,51 +10,56 @@
       <h:outputStylesheet library="css" name="table-style.css" />
    </h:head>
    <h:body>
-      <h:outputText value="Hallo Welt!"></h:outputText> <br/>
-      #{helloWorld.getMessage()}
-      <h2>Hello World - hello.xhtml</h2>
-      <h:form>
-         Name : <h:inputText value="TestValue3"/> <br/>
-         <h:commandButton value="Get Ghostnet" actionListener="#{ghostNetDAO.printAllGhostNets()}"/> <br/>
-      </h:form>
+      <h:outputText value="You are logged in!"></h:outputText> <br/>
+      <h2>Report A Ghostnet</h2>
       <h:form>
          Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
          Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.size}" converter="ghostNetSizeConverter" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
          Status: <h:selectOneMenu value="#{ghostNetDAO.status}">
                      <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
                   </h:selectOneMenu> <br/>
-         <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
+         <h:commandButton value="Report GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
       </h:form>
-      <h:dataTable value="#{ghostNetDAO.allGhostNets}" var="ghostNet"
-                   styleClass="ghostnet-table"
-                   headerClass="ghostnet-table-header"
-                   rowClasses="ghostnet-table-odd-row,ghostnet-table-even-row">
-         <h:column>
-            <f:facet name="header">
-               <h:outputText value="ID" />
-            </f:facet>
-            <h:outputText value="#{ghostNet.id}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">
-               <h:outputText value="Size" />
-            </f:facet>
-            <h:outputText value="#{ghostNet.size}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">
-               <h:outputText value="Status" />
-            </f:facet>
-            <h:outputText value="#{ghostNet.status}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">
-                <h:outputText value="Coordinates (Lat, Long)" />
-            </f:facet>
-            <h:outputText value="#{ghostNet.coordinates.latitude}" />
-            <h:outputText value="," />
-            <h:outputText value="#{ghostNet.coordinates.longitude}" />
-         </h:column>
-      </h:dataTable>
+      <h2>Ghostnet List</h2>
+      <h:form>
+         <h:selectOneMenu value="#{ghostNetDAO.selectedStatus}">
+            <f:selectItem itemLabel="ALL GHOSTNETS" itemValue="#{null}" />
+            <f:selectItems value="#{ghostNetDAO.statusValues}" var="status" itemValue="#{status}" itemLabel="#{status}" />
+            <f:ajax event="change" render="ghostnetTable" />
+         </h:selectOneMenu>      
+         <h:dataTable id="ghostnetTable"
+                      value="#{ghostNetDAO.filteredGhostNets()}" 
+                      var="ghostNet"
+                      styleClass="ghostnet-table"
+                      headerClass="ghostnet-table-header"
+                      rowClasses="ghostnet-table-odd-row,ghostnet-table-even-row">
+            <h:column>
+               <f:facet name="header">
+                  <h:outputText value="ID" />
+               </f:facet>
+               <h:outputText value="#{ghostNet.id}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">
+                  <h:outputText value="Size" />
+               </f:facet>
+               <h:outputText value="#{ghostNet.size}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">
+                  <h:outputText value="Status" />
+               </f:facet>
+               <h:outputText value="#{ghostNet.status}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">
+                   <h:outputText value="Coordinates (Lat, Long)" />
+               </f:facet>
+               <h:outputText value="#{ghostNet.coordinates.latitude}" />
+               <h:outputText value="," />
+               <h:outputText value="#{ghostNet.coordinates.longitude}" />
+            </h:column>
+         </h:dataTable>
+      </h:form>
    </h:body>
 </html>

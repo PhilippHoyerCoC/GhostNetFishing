@@ -19,6 +19,9 @@ public class UsernameValidator implements Validator<String> {
     
     @Override
     public void validate(FacesContext context, UIComponent component, String username) throws ValidatorException {
+        if (username == null || username.length() < 6) {
+            throw new ValidatorException(new FacesMessage("Username must be at least 6 characters long"));
+        }
         if (userDAO.getUserByUsername(username) != null) {
             throw new ValidatorException(new FacesMessage("Username already exists"));
         }

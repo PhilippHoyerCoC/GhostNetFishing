@@ -36,8 +36,6 @@ public class UserDAO {
     @PostConstruct
     public void init() {
         InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/CountryCodes.json");
-        // parse the JSON and create a list of Country objects
-        System.out.println("is: " + is);
         ObjectMapper mapper = new ObjectMapper();
         try {
             countries = mapper.readValue(is, new TypeReference<List<Country>>() {});
