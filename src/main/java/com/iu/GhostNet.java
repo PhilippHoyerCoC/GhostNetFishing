@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-//TODO: add implements Serializable?
 @Getter
 @Setter
 @Table(name = "ghostnet")

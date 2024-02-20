@@ -1,6 +1,5 @@
 package com.iu;
 
-import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -11,11 +10,15 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
+
 @Named
 @SessionScoped
 @Getter
 @Setter
 public class Login implements Serializable {
+
+    private static final Logger logger = Logger.getLogger(Login.class);
 
     private static final long serialVersionUID = 1094801825228386363L;
 
@@ -28,7 +31,7 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionUtils.getSession();
             session.setAttribute("userName", userName);
-            System.out.println("Login successful of user: " + userName);
+            logger.info("Login successful of user: " + userName);
             return "user";
         } else {
             FacesContext.getCurrentInstance().addMessage(
@@ -37,7 +40,7 @@ public class Login implements Serializable {
                             "Incorrect Username and Password",
                             "Please enter correct username and Password")
             );
-            System.out.println("Login failed");
+            logger.warn("Login failed");
             return "login";
         }
     }
@@ -45,7 +48,7 @@ public class Login implements Serializable {
     public String logout() {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
-        System.out.println("Logout successful of user with username: " + userName);
+        logger.info("Logout successful of user with username: " + userName);
         return "index";
     }
 }

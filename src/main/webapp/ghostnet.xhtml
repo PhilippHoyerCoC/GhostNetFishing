@@ -23,7 +23,7 @@
          Status: <h:selectOneMenu value="#{ghostNetDAO.status}">
                      <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
                   </h:selectOneMenu> <br/>
-         Assign Ghostnet to me: <h:selectBooleanCheckbox value="#{ghostNetDAO.assignToMe}" /> <br/>
+         Assign Ghostnet directly to me: <h:selectBooleanCheckbox value="#{ghostNetDAO.assignToMe}" /> <br/>
          <h:commandButton value="Report GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
       </h:form>
       <h2>Ghostnet List</h2>
@@ -73,7 +73,7 @@
             </h:column>
             <h:column>
                <f:facet name="header">
-                  <h:outputText value="Change Status" />
+                  <h:outputText value="Adjust Ghostnet Status" />
                </f:facet>
 
                <h:selectOneMenu value="#{ghostNetDAO.newStatuses[ghostNet.id]}" converter="ghostNetStatusConverter" >

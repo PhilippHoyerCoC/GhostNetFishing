@@ -5,7 +5,6 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.ValidatorException;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.*;
@@ -14,20 +13,20 @@ import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 
-//@ViewScoped
 @RequestScoped
 @Named
 @Getter
 @Setter
-public class GhostNetDAO implements Serializable{
+public class GhostNetDAO {
 
-    //private String status;
+    private static final Logger logger = Logger.getLogger(GhostNetDAO.class);
+
     private GhostNetStatusEnum status;
     private int size;
     private GhostNetStatusEnum[] statusValues = GhostNetStatusEnum.values();
@@ -35,7 +34,6 @@ public class GhostNetDAO implements Serializable{
     private boolean assignToMe;
 
     private GhostNetStatusEnum filterStatus;
-    private GhostNetStatusEnum newStatus;
 
     private Map<Long, GhostNetStatusEnum> newStatuses = new HashMap<>();
 
@@ -58,12 +56,12 @@ public class GhostNetDAO implements Serializable{
             ghostNet.setUser(user);
         }
         entityManager.persist(ghostNet);
-        System.out.println("Ghostnet ID: " + ghostNet.getId());
-        System.out.println("Ghostnet Size: " + ghostNet.getSize());
-        System.out.println("Ghostnet Status: " + ghostNet.getStatus());
-        System.out.println("Ghostnet Coordinates: " + ghostNet.getCoordinates());
-        System.out.println("Ghostnet User: " + ghostNet.getUser());
-        System.out.println("Finished setting Ghostnet from GhostNetDAO Class");
+        logger.info("Ghostnet ID: " + ghostNet.getId());
+        logger.info("Ghostnet Size: " + ghostNet.getSize());
+        logger.info("Ghostnet Status: " + ghostNet.getStatus());
+        logger.info("Ghostnet Coordinates: " + ghostNet.getCoordinates());
+        logger.info("Ghostnet User: " + ghostNet.getUser());
+        logger.info("Finished setting Ghostnet from GhostNetDAO Class");
     }
 
     @Transactional
@@ -73,12 +71,17 @@ public class GhostNetDAO implements Serializable{
         ghostNet.setStatus(GhostNetStatusEnum.REPORTED);
         ghostNet.setCoordinates(coordinates);
         entityManager.persist(ghostNet);
-        System.out.println("Ghostnet ID: " + ghostNet.getId());
-        System.out.println("Ghostnet Size: " + ghostNet.getSize());
-        System.out.println("Ghostnet Status: " + ghostNet.getStatus());
-        System.out.println("Ghostnet Coordinates: " + ghostNet.getCoordinates());
-        System.out.println("Finished setting Ghostnet from GhostNetDAO Class");
+        logger.info("Ghostnet ID: " + ghostNet.getId());
+        logger.info("Ghostnet Size: " + ghostNet.getSize());
+        logger.info("Ghostnet Status: " + ghostNet.getStatus());
+        logger.info("Ghostnet Coordinates: " + ghostNet.getCoordinates());
+        logger.info("Finished setting Ghostnet from GhostNetDAO Class");
+    }
 
+    public User getCurrentUser() {
+        HttpSession session = SessionUtils.getSession();
+        String userName = (String) session.getAttribute("userName");
+        return userDAO.getUserByUsername(userName);
     }
 
     @Transactional
@@ -88,7 +91,7 @@ public class GhostNetDAO implements Serializable{
         User user = userDAO.getUserByUsername(userName);
         ghostNet.setUser(user);
         entityManager.merge(ghostNet);
-        System.out.println("User " + userName + " assigned to ghostnet: " + ghostNet.getId());
+        logger.info("User " + userName + " assigned to ghostnet: " + ghostNet.getId());
     }
 
     @Transactional
@@ -96,7 +99,7 @@ public class GhostNetDAO implements Serializable{
         String userName = ghostNet.getUser().getUserName();
         ghostNet.setUser(null);
         entityManager.merge(ghostNet);
-        System.out.println("User " + userName + " unassigned from ghostnet: " + ghostNet.getId());
+        logger.info("User " + userName + " unassigned from ghostnet: " + ghostNet.getId());
     }
 
     @Transactional
@@ -105,24 +108,14 @@ public class GhostNetDAO implements Serializable{
     }
 
     @Transactional
-    public void printAllGhostNets() {
-        List<GhostNet> ghostNets = entityManager.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
-    }
-
-    @Transactional
     public void updateGhostNetStatus(GhostNet ghostNet) {
         GhostNetStatusEnum newStatusFromMap = newStatuses.get(ghostNet.getId());
         if (newStatusFromMap != null) {
             ghostNet.setStatus(newStatusFromMap);
             entityManager.merge(ghostNet);
-            System.out.println("Ghostnet " + ghostNet.getId() + " status updated to " + newStatusFromMap);
+            logger.info("Ghostnet " + ghostNet.getId() + " status updated to " + newStatusFromMap);
             newStatuses.clear();
         }
-    }
-
-    public void setNewStatus(GhostNetStatusEnum newStatus) {
-        this.newStatus = newStatus;
-        System.out.println("New Ghostnet Status: " + newStatus);
     }
 
     public List<GhostNet> filteredGhostNets() {

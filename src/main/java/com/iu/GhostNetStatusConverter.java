@@ -23,14 +23,4 @@ public class GhostNetStatusConverter implements Converter {
         }
         return ((GhostNetStatusEnum) value).name();
     }
-
-//    @Override
-//    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-//        return GhostNetStatusEnum.valueOf(value);
-//    }
-//
-//    @Override
-//    public String getAsString(FacesContext context, UIComponent component, Object value) {
-//        return ((GhostNetStatusEnum) value).name();
-//    }
 }

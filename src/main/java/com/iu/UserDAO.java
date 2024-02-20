@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,6 +35,8 @@ public class UserDAO {
 
     private List<Country> countries;
 
+    private static final Logger logger = Logger.getLogger(UserDAO.class);
+
     @PostConstruct
     public void init() {
         InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/CountryCodes.json");
@@ -57,14 +61,14 @@ public class UserDAO {
         user.setEmail(email);
         user.setPhone(phone);
         entityManager.persist(user);
-        System.out.println("User ID: " + user.getUserId());
-        System.out.println("User Username: " + user.getUserName());
-        System.out.println("User Password: " + user.getPassword());
-        System.out.println("User Forename: " + user.getForename());
-        System.out.println("User Lastname: " + user.getLastname());
-        System.out.println("User Email: " + user.getEmail());
-        System.out.println("User Phone: " + user.getPhone());
-        System.out.println("Finished setting User from UserDAO Class");
+        logger.info("User ID: " + user.getUserId());
+        logger.info("User Username: " + user.getUserName());
+        logger.info("User Password: " + user.getPassword());
+        logger.info("User Forename: " + user.getForename());
+        logger.info("User Lastname: " + user.getLastname());
+        logger.info("User Email: " + user.getEmail());
+        logger.info("User Phone: " + user.getPhone());
+        logger.info("Finished setting User from UserDAO Class");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("You registered successfully!"));
     }
 

@@ -7,7 +7,11 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 public class AuthorizationFilter implements Filter {
+
+    private static final Logger logger = Logger.getLogger(AuthorizationFilter.class);
 
     public AuthorizationFilter() {
     }
@@ -31,7 +35,7 @@ public class AuthorizationFilter implements Filter {
                 resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 
