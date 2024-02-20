@@ -1,6 +1,7 @@
 package com.iu;
 
-import jakarta.inject.Named;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,10 @@ public class User {
     @Embedded
     @Column(name="PHONE")
     private PhoneNumber phone;
+    
+    @OneToMany(mappedBy="user")
+    @JoinColumn(name="GHOSTNET_ID")
+    private List<GhostNet> ghostNets;
 
     public User() {
     }

@@ -10,6 +10,11 @@
       <h:outputStylesheet library="css" name="table-style.css" />
    </h:head>
    <h:body>
+      <h:form>
+         <div class="top-right">
+             <h:commandButton value="Logout" action="#{login.logout}" styleClass="ui-button-primary" />
+         </div>
+     </h:form>
       <h:outputText value="You are logged in!"></h:outputText> <br/>
       <h2>Report A Ghostnet</h2>
       <h:form>
@@ -18,11 +23,12 @@
          Status: <h:selectOneMenu value="#{ghostNetDAO.status}">
                      <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
                   </h:selectOneMenu> <br/>
+         Assign Ghostnet to me: <h:selectBooleanCheckbox value="#{ghostNetDAO.assignToMe}" /> <br/>
          <h:commandButton value="Report GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
       </h:form>
       <h2>Ghostnet List</h2>
       <h:form>
-         <h:selectOneMenu value="#{ghostNetDAO.selectedStatus}">
+         <h:selectOneMenu value="#{ghostNetDAO.filterStatus}">
             <f:selectItem itemLabel="ALL GHOSTNETS" itemValue="#{null}" />
             <f:selectItems value="#{ghostNetDAO.statusValues}" var="status" itemValue="#{status}" itemLabel="#{status}" />
             <f:ajax event="change" render="ghostnetTable" />
@@ -58,6 +64,28 @@
                <h:outputText value="#{ghostNet.coordinates.latitude}" />
                <h:outputText value="," />
                <h:outputText value="#{ghostNet.coordinates.longitude}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">
+                  <h:outputText value="Assigned User" />
+               </f:facet>
+               <h:outputText value="#{ghostNet.user.userName}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">
+                  <h:outputText value="Change Status" />
+               </f:facet>
+
+               <h:selectOneMenu value="#{ghostNetDAO.newStatuses[ghostNet.id]}" converter="ghostNetStatusConverter" >
+                  <f:selectItems value="#{ghostNetDAO.ghostNetStatusValues}" />
+               </h:selectOneMenu>
+               <h:commandButton value="Update Status" action="#{ghostNetDAO.updateGhostNetStatus(ghostNet)}" />
+            </h:column>
+            <h:column>
+               <h:commandButton value="Assign to me" actionListener="#{ghostNetDAO.assignUserToGhostNet(ghostNet)}" />
+            </h:column>
+            <h:column>
+               <h:commandButton value="Unassign from Ghostnet" actionListener="#{ghostNetDAO.unassignUserFromGhostNet(ghostNet)}" />
             </h:column>
          </h:dataTable>
       </h:form>

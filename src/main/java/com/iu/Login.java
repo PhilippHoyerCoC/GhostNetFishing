@@ -28,7 +28,7 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionUtils.getSession();
             session.setAttribute("userName", userName);
-            System.out.println("Login successful");
+            System.out.println("Login successful of user: " + userName);
             return "user";
         } else {
             FacesContext.getCurrentInstance().addMessage(
@@ -45,6 +45,7 @@ public class Login implements Serializable {
     public String logout() {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
-        return "login";
+        System.out.println("Logout successful of user with username: " + userName);
+        return "index";
     }
 }

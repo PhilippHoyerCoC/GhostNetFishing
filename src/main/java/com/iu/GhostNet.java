@@ -23,6 +23,10 @@ public class GhostNet {
     @Column(name="LOCATION")
     private Coordinates coordinates;
 
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    private User user;
+
     public GhostNet() {
     }
 
@@ -33,6 +37,7 @@ public class GhostNet {
                 ", size=" + size +
                 ", status=" + status +
                 ", coordinates=" + coordinates +
+                ", user=" + user +
                 '}';
     }
 }
