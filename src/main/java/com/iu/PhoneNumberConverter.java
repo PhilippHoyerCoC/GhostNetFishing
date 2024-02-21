@@ -11,7 +11,7 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter("phoneNumberConverter")
-public class PhoneNumberConverter implements Converter {
+public class PhoneNumberConverter implements Converter<Object> {
 
     private static final Logger logger = LogManager.getLogger(PhoneNumberConverter.class);
 

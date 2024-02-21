@@ -6,7 +6,7 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter(value="ghostNetStatusConverter")
-public class GhostNetStatusConverter implements Converter {
+public class GhostNetStatusConverter implements Converter<Object> {
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {

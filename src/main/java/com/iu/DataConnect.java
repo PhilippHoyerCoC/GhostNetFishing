@@ -10,16 +10,17 @@ public class DataConnect {
 
     private static final Logger logger = LogManager.getLogger(DataConnect.class);
 
+    private DataConnect() {
+        throw new AssertionError("DataConnect class should be instantiated.");
+    }
+
     public static Connection getConnection() {
-        //TODO: Use environment variables for the database connection
         String url = System.getenv("DB_URL");
         String username = System.getenv("DB_USERNAME");
         String password = System.getenv("DB_PASSWORD");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3307/ghostnet", "ghostnet", "geheim");
-            return con;
+            return DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             logger.error("Database.getConnection() Error --> {}", e.getMessage());
             return null;
@@ -30,6 +31,7 @@ public class DataConnect {
         try {
             connection.close();
         } catch (Exception e) {
+            logger.error("Error when closing the connection --> {}", e.getMessage());
         }
     }
 }

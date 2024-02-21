@@ -10,12 +10,12 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter("ghostNetCoordinatesConverter")
-public class GhostNetCoordinatesConverter implements Converter {
+public class GhostNetCoordinatesConverter implements Converter<Object> {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            double coordinate = Double.valueOf(value);
+            double coordinate = Double.parseDouble(value);
             String componentId = component.getId();
             if ("latitude".equals(componentId) && (coordinate < -90 || coordinate > 90)) {
                 throw new ConverterException(

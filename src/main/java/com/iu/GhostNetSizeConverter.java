@@ -8,7 +8,7 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter("ghostNetSizeConverter")
-public class GhostNetSizeConverter implements Converter {
+public class GhostNetSizeConverter implements Converter<Object> {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
