@@ -7,11 +7,12 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AuthorizationFilter implements Filter {
 
-    private static final Logger logger = Logger.getLogger(AuthorizationFilter.class);
+    private static final Logger logger = LogManager.getLogger(AuthorizationFilter.class);
 
     public AuthorizationFilter() {
     }

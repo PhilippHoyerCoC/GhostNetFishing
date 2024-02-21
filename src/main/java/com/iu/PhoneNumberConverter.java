@@ -1,6 +1,7 @@
 package com.iu;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
@@ -12,7 +13,7 @@ import jakarta.faces.convert.FacesConverter;
 @FacesConverter("phoneNumberConverter")
 public class PhoneNumberConverter implements Converter {
 
-    private static final Logger logger = Logger.getLogger(PhoneNumberConverter.class);
+    private static final Logger logger = LogManager.getLogger(PhoneNumberConverter.class);
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -21,7 +22,7 @@ public class PhoneNumberConverter implements Converter {
             String phoneNumber = value;
             String componentId = component.getId();
             if (componentId.equals("phone") && !phoneNumber.matches("[0-9 ]+")) {
-                logger.error("Phone number must contain only numbers but was: " + phoneNumber);
+                logger.error("Phone number must contain only numbers but was: {}", phoneNumber);
                 throw new ConverterException(
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Phone number must contain only numbers but was: " + phoneNumber, null)
                 );

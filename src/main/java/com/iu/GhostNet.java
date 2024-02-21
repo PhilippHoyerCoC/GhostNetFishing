@@ -27,6 +27,7 @@ public class GhostNet {
     private User user;
 
     public GhostNet() {
+        //Needed by JPA
     }
 
     @Override

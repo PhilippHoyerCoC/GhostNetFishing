@@ -17,7 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @RequestScoped
 @Named
@@ -25,7 +27,7 @@ import org.apache.log4j.Logger;
 @Setter
 public class GhostNetDAO {
 
-    private static final Logger logger = Logger.getLogger(GhostNetDAO.class);
+    private static final Logger logger = LogManager.getLogger(GhostNetDAO.class);
 
     private GhostNetStatusEnum status;
     private int size;
@@ -37,6 +39,8 @@ public class GhostNetDAO {
 
     private Map<Long, GhostNetStatusEnum> newStatuses = new HashMap<>();
 
+    private static final String USER_NAME = "userName";
+
     @Inject
     private UserDAO userDAO;
 
@@ -47,7 +51,7 @@ public class GhostNetDAO {
     public void createGhostNet(int size, GhostNetStatusEnum status) {
         GhostNet ghostNet = new GhostNet();
         HttpSession session = SessionUtils.getSession();
-        String userName = (String) session.getAttribute("userName");
+        String userName = (String) session.getAttribute(USER_NAME);
         User user = userDAO.getUserByUsername(userName);
         ghostNet.setSize(size);
         ghostNet.setStatus(status);
@@ -56,11 +60,11 @@ public class GhostNetDAO {
             ghostNet.setUser(user);
         }
         entityManager.persist(ghostNet);
-        logger.info("Ghostnet ID: " + ghostNet.getId());
-        logger.info("Ghostnet Size: " + ghostNet.getSize());
-        logger.info("Ghostnet Status: " + ghostNet.getStatus());
-        logger.info("Ghostnet Coordinates: " + ghostNet.getCoordinates());
-        logger.info("Ghostnet User: " + ghostNet.getUser());
+        logger.info("Ghostnet ID: {}", ghostNet.getId());
+        logger.info("Ghostnet Size: {}", ghostNet.getSize());
+        logger.info("Ghostnet Status: {}", ghostNet.getStatus());
+        logger.info("Ghostnet Coordinates: {}", ghostNet.getCoordinates());
+        logger.info("Ghostnet User: {}", ghostNet.getUser());
         logger.info("Finished setting Ghostnet from GhostNetDAO Class");
     }
 
@@ -71,27 +75,27 @@ public class GhostNetDAO {
         ghostNet.setStatus(GhostNetStatusEnum.REPORTED);
         ghostNet.setCoordinates(coordinates);
         entityManager.persist(ghostNet);
-        logger.info("Ghostnet ID: " + ghostNet.getId());
-        logger.info("Ghostnet Size: " + ghostNet.getSize());
-        logger.info("Ghostnet Status: " + ghostNet.getStatus());
-        logger.info("Ghostnet Coordinates: " + ghostNet.getCoordinates());
+        logger.info("Ghostnet ID: {}", ghostNet.getId());
+        logger.info("Ghostnet Size: {}", ghostNet.getSize());
+        logger.info("Ghostnet Status: {}", ghostNet.getStatus());
+        logger.info("Ghostnet Coordinates: {}", ghostNet.getCoordinates());
         logger.info("Finished setting Ghostnet from GhostNetDAO Class");
     }
 
     public User getCurrentUser() {
         HttpSession session = SessionUtils.getSession();
-        String userName = (String) session.getAttribute("userName");
+        String userName = (String) session.getAttribute(USER_NAME);
         return userDAO.getUserByUsername(userName);
     }
 
     @Transactional
     public void assignUserToGhostNet(GhostNet ghostNet) {
         HttpSession session = SessionUtils.getSession();
-        String userName = (String) session.getAttribute("userName");
+        String userName = (String) session.getAttribute(USER_NAME);
         User user = userDAO.getUserByUsername(userName);
         ghostNet.setUser(user);
         entityManager.merge(ghostNet);
-        logger.info("User " + userName + " assigned to ghostnet: " + ghostNet.getId());
+        logger.info("User {} assigned to ghostnet: {}", userName, ghostNet.getId());
     }
 
     @Transactional
@@ -99,7 +103,7 @@ public class GhostNetDAO {
         String userName = ghostNet.getUser().getUserName();
         ghostNet.setUser(null);
         entityManager.merge(ghostNet);
-        logger.info("User " + userName + " unassigned from ghostnet: " + ghostNet.getId());
+        logger.info("User {} unassigned from ghostnet: {}", userName, ghostNet.getId());
     }
 
     @Transactional
@@ -113,7 +117,7 @@ public class GhostNetDAO {
         if (newStatusFromMap != null) {
             ghostNet.setStatus(newStatusFromMap);
             entityManager.merge(ghostNet);
-            logger.info("Ghostnet " + ghostNet.getId() + " status updated to " + newStatusFromMap);
+            logger.info("Ghostnet {} status updated to {}", ghostNet.getId(), newStatusFromMap);
             newStatuses.clear();
         }
     }

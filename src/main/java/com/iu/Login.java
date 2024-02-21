@@ -10,7 +10,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @Named
 @SessionScoped
@@ -18,7 +20,7 @@ import org.apache.log4j.Logger;
 @Setter
 public class Login implements Serializable {
 
-    private static final Logger logger = Logger.getLogger(Login.class);
+    private static final Logger logger = LogManager.getLogger(Login.class);
 
     private static final long serialVersionUID = 1094801825228386363L;
 
@@ -31,7 +33,7 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionUtils.getSession();
             session.setAttribute("userName", userName);
-            logger.info("Login successful of user: " + userName);
+            logger.info("Login successful of user: {}", userName);
             return "user";
         } else {
             FacesContext.getCurrentInstance().addMessage(
@@ -48,7 +50,7 @@ public class Login implements Serializable {
     public String logout() {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
-        logger.info("Logout successful of user with username: " + userName);
+        logger.info("Logout successful of user with username: {}", userName);
         return "index";
     }
 }

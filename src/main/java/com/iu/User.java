@@ -35,6 +35,7 @@ public class User {
     private List<GhostNet> ghostNets;
 
     public User() {
+        //Needed by JPA
     }
 
     @Override

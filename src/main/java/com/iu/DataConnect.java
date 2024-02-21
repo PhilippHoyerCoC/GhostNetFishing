@@ -3,11 +3,12 @@ package com.iu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DataConnect {
 
-    private static final Logger logger = Logger.getLogger(DataConnect.class);
+    private static final Logger logger = LogManager.getLogger(DataConnect.class);
 
     public static Connection getConnection() {
         //TODO: Use environment variables for the database connection
@@ -20,7 +21,7 @@ public class DataConnect {
                     "jdbc:mysql://localhost:3307/ghostnet", "ghostnet", "geheim");
             return con;
         } catch (Exception e) {
-            logger.error("Database.getConnection() Error -->" + e.getMessage());
+            logger.error("Database.getConnection() Error --> {}", e.getMessage());
             return null;
         }
     }
