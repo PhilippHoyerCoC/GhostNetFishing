@@ -6,6 +6,10 @@ import jakarta.servlet.http.HttpSession;
 
 public class SessionUtils {
 
+    private SessionUtils() {
+        throw new AssertionError("SessionUtils is a utility class and should not be instantiated");
+    }
+
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }

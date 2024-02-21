@@ -1,4 +1,6 @@
-package com.iu;
+package com.iu.model;
+
+import com.iu.GhostNetStatusEnum;
 
 import jakarta.persistence.*;
 import lombok.Getter;

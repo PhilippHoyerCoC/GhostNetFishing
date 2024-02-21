@@ -1,4 +1,4 @@
-package com.iu;
+package com.iu.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

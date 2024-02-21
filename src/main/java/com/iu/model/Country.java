@@ -1,4 +1,4 @@
-package com.iu;
+package com.iu.model;
 
 import lombok.Getter;
 import lombok.Setter;

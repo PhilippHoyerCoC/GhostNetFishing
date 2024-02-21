@@ -1,4 +1,6 @@
-package com.iu;
+package com.iu.converters;
+
+import com.iu.GhostNetStatusEnum;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;

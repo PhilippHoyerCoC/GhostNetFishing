@@ -15,10 +15,12 @@ public class AuthorizationFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AuthorizationFilter.class);
 
     public AuthorizationFilter() {
+        // No setup is needed for this filter when it is created, hence the constructor is empty.
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        // No initialization is needed for this filter    
     }
 
     @Override
@@ -42,7 +44,7 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        // No cleanup is needed for this filter
     }
 
 }

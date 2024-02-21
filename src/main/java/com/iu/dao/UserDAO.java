@@ -1,4 +1,4 @@
-package com.iu;
+package com.iu.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iu.model.Country;
+import com.iu.model.PhoneNumber;
+import com.iu.model.User;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;

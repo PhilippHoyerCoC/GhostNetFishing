@@ -1,12 +1,18 @@
-package com.iu;
+package com.iu.dao;
 
 import java.sql.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.iu.DataConnect;
+
 
 public class LoginDAO {
+
+    private LoginDAO() {
+        throw new AssertionError("LoginDAO is a utility class and should not be instantiated");
+    }
 
     private static final Logger logger = LogManager.getLogger(LoginDAO.class);
 

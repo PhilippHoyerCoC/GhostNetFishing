@@ -1,4 +1,6 @@
-package com.iu;
+package com.iu.validators;
+
+import com.iu.dao.UserDAO;
 
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.faces.application.FacesMessage;
