@@ -1,5 +1,4 @@
-Project for the IU course "Programmierung von 
-industriellen Informationssystemen mit Java EE"
+# Project for the IU course "Programmierung von industriellen Informationssystemen mit Java EE"
 
 This project runs on 
 - Java 17
@@ -15,28 +14,52 @@ config was added to simplify the project startup from another dev.
 
 The decision for a TomEE server instead of a Tomcat server is because with a
 Tomcat in Jakarta EE 9 you have to manually add all the JSF dependencies like
-Mojarra manually via the pom.xml and before you start configuring an application
-server manually you can just use the application server directly. The Tomcat is more
+Mojarra manually via the pom.xml. And before you start configuring an application
+server manually you can just use the application server directly. The Tomcat is a more
 lightweight server but for this case the size of the container doesn't matter so a
-TomEE is much easier for project setup.
+TomEE is easier for project setup.
+The database is not set up locally but in a container. This reduces the
+chance of problems because of the local setup.
 
-Start up the database container:
+# Steps for setting up the project:
+
+## Start up the database container: \
 docker run -p 3307:3306 --name=ghostnet-db --network=ghostnet -e MYSQL_ROOT_PASSWORD=geheim 
 -e MYSQL_USER=ghostnet -e MYSQL_PASSWORD=geheim -e MYSQL_DATABASE=ghostnet -d mysql/mysql-server:latest
 
-Connect to the database: mysql -h localhost -P 3307 --protocol=tcp -u ghostnet -p
+In case the port 3307 is already used on the target machine change the port in the docker run
+command and adjust the port in the JdbcUrl of the tomee.xml provided below!
 
-Adjust TomEE: 
+Connect to the database: \
+mysql -h localhost -P 3307 --protocol=tcp -u ghostnet -p geheim
+
+If you don't have mysql configured on your machine you can log in into the container via
+"docker exec -it CONTAINER_NAME" and execute the mysql command from there.
+
+## Adjust TomEE: 
 - Adjust tomee.xml in conf folder of tomee
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <tomee>
   <Resource id="MyDataSource" type="DataSource">
       JdbcDriver com.mysql.cj.jdbc.Driver
-      JdbcUrl jdbc:mysql://localhost:3306/ghostnet
-      UserName root
-      <!--Password geheim-->
+      JdbcUrl jdbc:mysql://localhost:3307/ghostnet
+      UserName ghostnet
+      Password geheim
       JtaManaged true
   </Resource>
 </tomee>
+```
+- Add mysql-connector-j-8.1.0.jar (adhered in the project root directory) to lib of tomee
 
-- Add mysql-connector-j-8.1.0.jar to lib of tomee
+## Start application:
+The application was developed with Intellij. When you have the tomee server installed and configured properly as shown below you can set the tomee server as runtime. Also add the url http://localhost:8080/GhostNetFishing as startup url.
+
+Also make sure to set the following environment variables:
+DB_URL: jdbc:mysql://localhost:3307/ghostnet
+
+DB_USERNAME: ghostnet
+
+DB_PASSWORD: geheim
+
+These variables are used to connect to the database an should not be hard coded. For production environments the values should be changed and not inserted into git without encryption!

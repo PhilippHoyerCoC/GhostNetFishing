@@ -1,4 +1,4 @@
-package com.iu;
+package com.iu.util;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;

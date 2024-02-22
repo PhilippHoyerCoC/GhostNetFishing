@@ -1,4 +1,4 @@
-package com.iu;
+package com.iu.util;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;

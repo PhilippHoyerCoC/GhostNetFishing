@@ -20,11 +20,11 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.iu.GhostNetStatusEnum;
-import com.iu.SessionUtils;
 import com.iu.model.Coordinates;
 import com.iu.model.GhostNet;
+import com.iu.model.GhostNetStatusEnum;
 import com.iu.model.User;
+import com.iu.util.SessionUtils;
 
 
 @RequestScoped
