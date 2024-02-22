@@ -56,6 +56,7 @@ If you don't have mysql configured on your machine you can log in into the conta
 The application was developed with Intellij. When you have the tomee server installed and configured properly as shown below you can set the tomee server as runtime. Also add the url http://localhost:8080/GhostNetFishing as startup url.
 
 Also make sure to set the following environment variables:
+
 DB_URL: jdbc:mysql://localhost:3307/ghostnet
 
 DB_USERNAME: ghostnet
