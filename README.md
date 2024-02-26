@@ -58,9 +58,16 @@ The application was developed with Intellij. When you have the tomee server inst
 Also make sure to set the following environment variables:
 
 DB_URL: jdbc:mysql://localhost:3307/ghostnet
-
 DB_USERNAME: ghostnet
-
 DB_PASSWORD: geheim
 
 These variables are used to connect to the database an should not be hard coded. For production environments the values should be changed and not inserted into git without encryption!
+If you start the application from your IDE make sure the environment variables are set at startup of the tomee server.
+When you start the tomee server manually you can copy the setenv.sh or setenv.bat to the bin folder of the tomee server. Them the environment variables are automatically set when you start the server.
+
+Build the application with maven: mvn clean install
+
+Start the application manually:
+- Start the tomee server with the startup.sh or startup.bat in the bin folder of the tomee server
+- Copy the war file from the target folder of the project to the webapps folder of the tomee server
+- Open the browser and go to http://localhost:8080/GhostNetFishing/index.xhtml
