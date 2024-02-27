@@ -53,6 +53,6 @@ public class Login implements Serializable {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
         logger.info("Logout successful of user with username: {}", userName);
-        return "index";
+        return "logout";
     }
 }
