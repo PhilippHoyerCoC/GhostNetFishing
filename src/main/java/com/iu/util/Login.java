@@ -24,8 +24,6 @@ public class Login implements Serializable {
 
     private static final Logger logger = LogManager.getLogger(Login.class);
 
-    private static final long serialVersionUID = 1094801825228386363L;
-
     private String userName;
     private String password;
     private String message;
