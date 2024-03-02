@@ -88,12 +88,6 @@ public class GhostNetDAO {
         logger.info("Finished setting Ghostnet from GhostNetDAO Class");
     }
 
-    public User getcurrentuser() {
-        HttpSession session = SessionUtils.getSession();
-        String userName = (String) session.getAttribute(USER_NAME);
-        return userDAO.getUserByUsername(userName);
-    }
-
     @Transactional
     public void assignUserToGhostNet(GhostNet ghostNet) {
         HttpSession session = SessionUtils.getSession();
@@ -136,11 +130,6 @@ public class GhostNetDAO {
             query.setParameter("status", filterStatus);
             return query.getResultList();         
         }
-    }
-
-    public GhostNetStatusEnum getGhostNetStatus(Long id) {
-        GhostNet ghostNet = entityManager.find(GhostNet.class, id);
-        return ghostNet.getStatus();
     }
 
     public GhostNetStatusEnum[] getGhostNetStatusValues() {

@@ -19,23 +19,23 @@ public class AuthorizationFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         // No initialization is needed for this filter    
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         try {
-            HttpServletRequest reqt = (HttpServletRequest) request;
-            HttpServletResponse resp = (HttpServletResponse) response;
-            HttpSession ses = reqt.getSession(false);
+            HttpServletRequest servletRequest = (HttpServletRequest) request;
+            HttpServletResponse servletResponse = (HttpServletResponse) response;
+            HttpSession ses = servletRequest.getSession(false);
 
-            String reqURI = reqt.getRequestURI();
+            String reqURI = servletRequest.getRequestURI();
             if (reqURI.indexOf("/login.xhtml") >= 0 || (ses != null && ses.getAttribute("userName") != null)
                     || reqURI.indexOf("/public/") >= 0 || reqURI.contains("javax.faces.resource")) {
                 chain.doFilter(request, response);
             } else {
-                resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
+                servletResponse.sendRedirect(servletRequest.getContextPath() + "/faces/login.xhtml");
             }
         } catch (Exception e) {
             logger.warn(e.getMessage());

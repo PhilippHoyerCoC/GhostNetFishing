@@ -50,7 +50,7 @@ public class Login implements Serializable {
 
     public static boolean validate(String user, String password) {
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         logger.info("Validate user: {}", user);
 
         try {
