@@ -34,18 +34,14 @@ import com.iu.session.SessionUtils;
 public class GhostNetDAO {
 
     private static final Logger logger = LogManager.getLogger(GhostNetDAO.class);
-
-    private GhostNetStatusEnum status;
-    private int size;
-    private GhostNetStatusEnum[] statusValues = GhostNetStatusEnum.values();
-    private Coordinates coordinates = new Coordinates();
-    private boolean assignToMe;
-
-    private GhostNetStatusEnum filterStatus;
-
-    private Map<Long, GhostNetStatusEnum> newStatuses = new HashMap<>();
-
     private static final String USER_NAME = "userName";
+
+    private GhostNet ghostNet = new GhostNet();
+
+    private GhostNetStatusEnum[] statusValues = GhostNetStatusEnum.values();
+    private boolean assignToMe;
+    private GhostNetStatusEnum filterStatus;
+    private Map<Long, GhostNetStatusEnum> newStatuses = new HashMap<>();
 
     @Inject
     private UserDAO userDAO;
@@ -53,15 +49,15 @@ public class GhostNetDAO {
     @PersistenceContext(unitName = "default")
     EntityManager entityManager;
 
+    public GhostNetDAO() {
+        ghostNet.setCoordinates(new Coordinates());
+    }
+
     @Transactional
-    public void createGhostNet(int size, GhostNetStatusEnum status) {
-        GhostNet ghostNet = new GhostNet();
+    public void createGhostNet() {
         HttpSession session = SessionUtils.getSession();
         String userName = (String) session.getAttribute(USER_NAME);
         User user = userDAO.getUserByUsername(userName);
-        ghostNet.setSize(size);
-        ghostNet.setStatus(status);
-        ghostNet.setCoordinates(coordinates);
         if (assignToMe) {
             ghostNet.setUser(user);
         }
@@ -72,20 +68,21 @@ public class GhostNetDAO {
         logger.info("Ghostnet Coordinates: {}", ghostNet.getCoordinates());
         logger.info("Ghostnet User: {}", ghostNet.getUser());
         logger.info("Finished setting Ghostnet from GhostNetDAO Class");
+        // Reset the ghostNet object after persisting it
+        ghostNet = new GhostNet();
     }
 
     @Transactional
-    public void createGhostNetWithoutStatus(int size) {
-        GhostNet ghostNet = new GhostNet();
-        ghostNet.setSize(size);
+    public void createGhostNetWithoutStatus() {
         ghostNet.setStatus(GhostNetStatusEnum.REPORTED);
-        ghostNet.setCoordinates(coordinates);
         entityManager.persist(ghostNet);
         logger.info("Ghostnet ID: {}", ghostNet.getId());
         logger.info("Ghostnet Size: {}", ghostNet.getSize());
         logger.info("Ghostnet Status: {}", ghostNet.getStatus());
         logger.info("Ghostnet Coordinates: {}", ghostNet.getCoordinates());
         logger.info("Finished setting Ghostnet from GhostNetDAO Class");
+        // Reset the ghostNet object after persisting it
+        ghostNet = new GhostNet();
     }
 
     @Transactional

@@ -18,13 +18,13 @@
       <h:outputText value="You are logged in!"></h:outputText> <br/>
       <h2>Report A Ghostnet</h2>
       <h:form>
-         Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
-         Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.size}" converter="ghostNetSizeConverter" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
-         Status: <h:selectOneMenu value="#{ghostNetDAO.status}">
+         Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.ghostNet.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.ghostNet.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
+         Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
+         Status: <h:selectOneMenu value="#{ghostNetDAO.ghostNet.status}">
                      <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
                   </h:selectOneMenu> <br/>
          Assign Ghostnet directly to me: <h:selectBooleanCheckbox value="#{ghostNetDAO.assignToMe}" /> <br/>
-         <h:commandButton value="Report GhostNet" actionListener="#{ghostNetDAO.createGhostNet(ghostNetDAO.size, ghostNetDAO.status)}" /> <br/>
+         <h:commandButton value="Report GhostNet" actionListener="#{ghostNetDAO.createGhostNet}" /> <br/>
       </h:form>
       <h2>Ghostnet List</h2>
       <h:form>

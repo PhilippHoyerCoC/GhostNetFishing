@@ -35,6 +35,9 @@ public class UserDAO {
     private User user = new User();
     private List<Country> countries;
 
+    @PersistenceContext(unitName = "default")
+    EntityManager entityManager;
+
     public UserDAO() {
         user.setPhone(new PhoneNumber());
     }
@@ -49,9 +52,6 @@ public class UserDAO {
             logger.error("Error reading country codes", e);
         }
     }
-
-    @PersistenceContext(unitName = "default")
-    EntityManager entityManager;
 
     @Transactional
     public void createUser() {

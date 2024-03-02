@@ -18,9 +18,9 @@
         </h:form>
         <h1>Help us collecting ghost nets!</h1>
         <h:form>
-            Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
-            Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.size}" converter="ghostNetSizeConverter" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
-            <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNetWithoutStatus(ghostNetDAO.size)}" /> <br/>
+            Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.ghostNet.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.ghostNet.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
+            Ghostnet Size: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" validator="#{ghostNetDAO.validateGhostNetSize}" /> <br/>
+            <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNetWithoutStatus}" /> <br/>
         </h:form>
         <h:dataTable value="#{ghostNetDAO.allGhostNets}" var="ghostNet"
                      styleClass="ghostnet-table"
