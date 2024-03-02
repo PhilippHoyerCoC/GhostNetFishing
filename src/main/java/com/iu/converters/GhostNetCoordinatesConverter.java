@@ -27,7 +27,7 @@ public class GhostNetCoordinatesConverter implements Converter<Object> {
             return coordinate;
         } catch (NumberFormatException e) {
             throw new ConverterException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Coordinates must only conatin numbers", null), e);
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Coordinates must only contain numbers", null), e);
         }
     }
 

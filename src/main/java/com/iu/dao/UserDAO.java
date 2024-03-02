@@ -43,7 +43,7 @@ public class UserDAO {
     }
 
     @PostConstruct
-    public void init() {
+    public void loadCountries() {
         InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/CountryCodes.json");
         ObjectMapper mapper = new ObjectMapper();
         try {

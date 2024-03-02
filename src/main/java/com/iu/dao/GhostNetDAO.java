@@ -132,13 +132,4 @@ public class GhostNetDAO {
     public GhostNetStatusEnum[] getGhostNetStatusValues() {
         return statusValues;
     }
-
-    public void validateGhostNetSize(FacesContext context, UIComponent component, Object value) {
-        Integer netSize = (Integer) value;
-        if (netSize <= 0) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ghostnet size must be greater than 0", null)
-            );
-        }
-    }
 }
