@@ -30,16 +30,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDAO {
-    private String username;
-    private String password;
-    private String forename;
-    private String lastname;
-    private String email;
-    private PhoneNumber phone = new PhoneNumber();
+    private static final Logger logger = LogManager.getLogger(UserDAO.class);
 
+    private User user = new User();
     private List<Country> countries;
 
-    private static final Logger logger = LogManager.getLogger(UserDAO.class);
+    public UserDAO() {
+        user.setPhone(new PhoneNumber());
+    }
 
     @PostConstruct
     public void init() {
@@ -48,7 +46,7 @@ public class UserDAO {
         try {
             countries = mapper.readValue(is, new TypeReference<List<Country>>() {});
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error reading country codes", e);
         }
     }
 
@@ -56,14 +54,7 @@ public class UserDAO {
     EntityManager entityManager;
 
     @Transactional
-    public void createUser(String userName, String password, String forename, String lastname, String email) {
-        User user = new User();
-        user.setUserName(userName);
-        user.setPassword(password);
-        user.setForename(forename);
-        user.setLastname(lastname);
-        user.setEmail(email);
-        user.setPhone(phone);
+    public void createUser() {
         entityManager.persist(user);
         logger.info("User ID: {}", user.getUserId());
         logger.info("User Username: {}", user.getUserName());
