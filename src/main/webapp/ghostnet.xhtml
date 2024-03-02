@@ -21,7 +21,7 @@
          Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.ghostNet.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.ghostNet.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
          Ghostnet Size [㎡]: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" validator="ghostNetSizeValidator" /> <br/>
          Status: <h:selectOneMenu value="#{ghostNetDAO.ghostNet.status}">
-                     <f:selectItems value="#{ghostNetDAO.getGhostNetStatusValues()}" />
+                     <f:selectItems value="#{ghostNetDAO.statusValues}" />
                   </h:selectOneMenu> <br/>
          Assign Ghostnet directly to me: <h:selectBooleanCheckbox value="#{ghostNetDAO.assignToMe}" /> <br/>
          <h:commandButton value="Report GhostNet" actionListener="#{ghostNetDAO.createGhostNet}" /> <br/>
@@ -75,9 +75,8 @@
                <f:facet name="header">
                   <h:outputText value="Adjust Ghostnet Status" />
                </f:facet>
-
                <h:selectOneMenu value="#{ghostNetDAO.newStatuses[ghostNet.id]}" converter="ghostNetStatusConverter" >
-                  <f:selectItems value="#{ghostNetDAO.ghostNetStatusValues}" />
+                  <f:selectItems value="#{ghostNetDAO.statusValues}" />
                </h:selectOneMenu>
                <h:commandButton value="Update Status" action="#{ghostNetDAO.updateGhostNetStatus(ghostNet)}" />
             </h:column>

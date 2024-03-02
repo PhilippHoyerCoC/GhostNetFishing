@@ -17,7 +17,6 @@ public class PhoneNumberConverter implements Converter<Object> {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        // Convert the string value to a PhoneNumber object
         try {
             String phoneNumber = value;
             String componentId = component.getId();
@@ -38,7 +37,6 @@ public class PhoneNumberConverter implements Converter<Object> {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        // Convert the PhoneNumber object to a string
         return value.toString();
     }
 }
