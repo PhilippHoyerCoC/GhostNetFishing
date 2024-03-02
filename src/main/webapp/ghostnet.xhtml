@@ -8,6 +8,7 @@
    <h:head>
       <title>Create Ghostnet</title>
       <h:outputStylesheet library="css" name="table-style.css" />
+      <h:outputStylesheet library="css" name="navigation-buttons.css" />
    </h:head>
    <h:body>
       <h:form>
@@ -61,9 +62,9 @@
                <f:facet name="header">
                    <h:outputText value="Coordinates (Lat, Long)" />
                </f:facet>
-               <h:outputText value="#{ghostNet.coordinates.latitude}" />
-               <h:outputText value="," />
-               <h:outputText value="#{ghostNet.coordinates.longitude}" />
+               <h:outputText value="#{ghostNet.coordinates.latitude}°" />
+               <h:outputText value=", " />
+               <h:outputText value="#{ghostNet.coordinates.longitude}°" />
             </h:column>
             <h:column>
                <f:facet name="header">

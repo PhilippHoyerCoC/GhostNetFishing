@@ -24,7 +24,7 @@ import com.iu.model.Coordinates;
 import com.iu.model.GhostNet;
 import com.iu.model.GhostNetStatusEnum;
 import com.iu.model.User;
-import com.iu.util.SessionUtils;
+import com.iu.session.SessionUtils;
 
 
 @RequestScoped
@@ -88,7 +88,7 @@ public class GhostNetDAO {
         logger.info("Finished setting Ghostnet from GhostNetDAO Class");
     }
 
-    public User getCurrentUser() {
+    public User getcurrentuser() {
         HttpSession session = SessionUtils.getSession();
         String userName = (String) session.getAttribute(USER_NAME);
         return userDAO.getUserByUsername(userName);

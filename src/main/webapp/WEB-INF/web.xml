@@ -28,7 +28,7 @@
 
   <filter>
       <filter-name>AuthorizationFilter</filter-name>
-      <filter-class>com.iu.util.AuthorizationFilter</filter-class>
+      <filter-class>com.iu.session.AuthorizationFilter</filter-class>
   </filter>
   <filter-mapping>
       <filter-name>AuthorizationFilter</filter-name>
