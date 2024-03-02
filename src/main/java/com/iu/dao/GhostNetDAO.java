@@ -16,6 +16,7 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,10 +56,10 @@ public class GhostNetDAO {
 
     @Transactional
     public void createGhostNet() {
-        HttpSession session = SessionUtils.getSession();
-        String userName = (String) session.getAttribute(USER_NAME);
-        User user = userDAO.getUserByUsername(userName);
         if (assignToMe) {
+            HttpSession session = SessionUtils.getSession();
+            String userName = (String) session.getAttribute(USER_NAME);
+            User user = userDAO.getUserByUsername(userName);
             ghostNet.setUser(user);
         }
         entityManager.persist(ghostNet);
@@ -104,11 +105,6 @@ public class GhostNetDAO {
     }
 
     @Transactional
-    public List<GhostNet> getAllGhostNets() {
-        return entityManager.createQuery("SELECT c FROM GhostNet c", GhostNet.class).getResultList();
-    }
-
-    @Transactional
     public void updateGhostNetStatus(GhostNet ghostNet) {
         GhostNetStatusEnum newStatusFromMap = newStatuses.get(ghostNet.getId());
         if (newStatusFromMap != null) {
@@ -119,14 +115,16 @@ public class GhostNetDAO {
         }
     }
 
-    public List<GhostNet> filteredGhostNets() {
+    @Transactional
+    public List<GhostNet> getFilteredGhostNets() {
+        TypedQuery<GhostNet> query;
         if (filterStatus == null) {
-            return getAllGhostNets();
+            query = entityManager.createQuery("SELECT g FROM GhostNet g", GhostNet.class);
         } else {
-            TypedQuery<GhostNet> query = entityManager.createQuery("SELECT g FROM GhostNet g WHERE g.status = :status", GhostNet.class);
-            query.setParameter("status", filterStatus);
-            return query.getResultList();         
+            query = entityManager.createQuery("SELECT g FROM GhostNet g WHERE g.status = :status", GhostNet.class);
+            query.setParameter("status", filterStatus);         
         }
+        return query.getResultList();
     }
 
     public GhostNetStatusEnum[] getGhostNetStatusValues() {

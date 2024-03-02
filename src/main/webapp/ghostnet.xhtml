@@ -34,7 +34,7 @@
             <f:ajax event="change" render="ghostnetTable" />
          </h:selectOneMenu>      
          <h:dataTable id="ghostnetTable"
-                      value="#{ghostNetDAO.filteredGhostNets()}" 
+                      value="#{ghostNetDAO.filteredGhostNets}" 
                       var="ghostNet"
                       styleClass="ghostnet-table"
                       headerClass="ghostnet-table-header"

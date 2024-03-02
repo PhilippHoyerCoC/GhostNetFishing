@@ -22,7 +22,7 @@
             Ghostnet Size [㎡]: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" validator="ghostNetSizeValidator" /> <br/>
             <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNetWithoutStatus}" /> <br/>
         </h:form>
-        <h:dataTable value="#{ghostNetDAO.allGhostNets}" var="ghostNet"
+        <h:dataTable value="#{ghostNetDAO.filteredGhostNets}" var="ghostNet"
                      styleClass="ghostnet-table"
                      headerClass="ghostnet-table-header"
                      rowClasses="ghostnet-table-odd-row,ghostnet-table-even-row">
