@@ -1,7 +1,6 @@
 package com.iu.session;
 
 import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class SessionUtils {
