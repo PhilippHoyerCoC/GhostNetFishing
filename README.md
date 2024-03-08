@@ -6,7 +6,7 @@ This project runs on
 - maven 3.9.4
 - apache-tomee-plume-9.1.0 server
 
-This server can be downloaded on 
+This server can be downloaded at 
 https://www.apache.org/dyn/closer.cgi/tomee/tomee-9.1.0/apache-tomee-9.1.0-plume.zip
 
 The project was developed in Intellij IDEA so the .idea directory with the project

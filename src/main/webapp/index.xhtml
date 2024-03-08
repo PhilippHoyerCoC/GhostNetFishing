@@ -23,7 +23,6 @@
             <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNetWithoutStatus}" /> <br/>
         </h:form>
         <h:dataTable value="#{ghostNetDAO.filteredGhostNets}" var="ghostNet"
-                     styleClass="ghostnet-table"
                      headerClass="ghostnet-table-header"
                      rowClasses="ghostnet-table-odd-row,ghostnet-table-even-row">
             <h:column>
