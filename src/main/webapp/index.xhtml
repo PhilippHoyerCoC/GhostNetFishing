@@ -12,14 +12,14 @@
     <h:body>
         <h:form>
             <div class="top-right">
-                <h:button value="Login" outcome="faces/login" styleClass="ui-button-primary" />
+                <h:button value="Login" outcome="login" styleClass="ui-button-primary" />
                 <h:button value="Register" outcome="register" styleClass="ui-button-primary" />
             </div>
         </h:form>
         <h1>Help us collecting ghost nets!</h1>
         <h:form>
             Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.ghostNet.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.ghostNet.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
-            Ghostnet Size [㎡]: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" validator="ghostNetSizeValidator" /> <br/>
+            Ghostnet Size [㎡]: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" /> <br/>
             <h:commandButton value="Create GhostNet" actionListener="#{ghostNetDAO.createGhostNetWithoutStatus}" /> <br/>
         </h:form>
         <h:dataTable value="#{ghostNetDAO.filteredGhostNets}" var="ghostNet"

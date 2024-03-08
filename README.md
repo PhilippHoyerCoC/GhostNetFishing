@@ -53,17 +53,8 @@ If you don't have mysql configured on your machine you can log in into the conta
 - Add mysql-connector-j-8.1.0.jar (adhered in the project root directory) to lib of tomee
 
 ## Start application:
-The application was developed with Intellij. When you have the tomee server installed and configured properly as shown below you can set the tomee server as runtime. Also add the url http://localhost:8080/GhostNetFishing as startup url.
-
-Also make sure to set the following environment variables:
-
-DB_URL: jdbc:mysql://localhost:3307/ghostnet
-DB_USERNAME: ghostnet
-DB_PASSWORD: geheim
-
-These variables are used to connect to the database an should not be hard coded. For production environments the values should be changed and not inserted into git without encryption!
-If you start the application from your IDE make sure the environment variables are set at startup of the tomee server.
-When you start the tomee server manually you can copy the setenv.sh or setenv.bat to the bin folder of the tomee server. Them the environment variables are automatically set when you start the server.
+The application was developed with Intellij. When you have the tomee server installed and configured properly as shown below you can set the tomee server as runtime. 
+Also add the url http://localhost:8080/GhostNetFishing as startup url. Then you can start the application with the play button in the top right corner of Intellij.
 
 Build the application with maven: mvn clean install
 

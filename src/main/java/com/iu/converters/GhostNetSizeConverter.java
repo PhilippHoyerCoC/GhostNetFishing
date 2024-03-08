@@ -13,7 +13,12 @@ public class GhostNetSizeConverter implements Converter<Object> {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            return Integer.valueOf(value);
+            int size = Integer.parseInt(value);
+            if (size <= 0) {
+                throw new ConverterException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ghostnet size must be greater than 0", null));
+            }
+            return size;
         } catch (NumberFormatException e) {
             throw new ConverterException(
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ghostnet size must only conatin numbers", null), e);

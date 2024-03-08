@@ -26,10 +26,10 @@ public class AuthorizationFilter implements Filter {
         try {
             HttpServletRequest servletRequest = (HttpServletRequest) request;
             HttpServletResponse servletResponse = (HttpServletResponse) response;
-            HttpSession ses = servletRequest.getSession(false);
+            HttpSession session = servletRequest.getSession(false);
 
             String reqURI = servletRequest.getRequestURI();
-            if (reqURI.indexOf("/login.xhtml") >= 0 || (ses != null && ses.getAttribute("userName") != null)
+            if (reqURI.indexOf("/login.xhtml") >= 0 || (session != null && session.getAttribute("userName") != null)
                     || reqURI.indexOf("/public/") >= 0 || reqURI.contains("javax.faces.resource")) {
                 chain.doFilter(request, response);
             } else {
