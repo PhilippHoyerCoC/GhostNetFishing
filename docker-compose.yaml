@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  ghostnet-db:
+    image: mysql/mysql-server:8.0.32
+    environment:
+      MYSQL_ROOT_PASSWORD: geheim
+      MYSQL_DATABASE: ghostnet
+      MYSQL_USER: ghostnet
+      MYSQL_PASSWORD: geheim
+    ports:
+      - '3307:3306'
+    networks:
+      - ghostnet
+    volumes:
+      - ghostnet-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  app:
+    image: ghostnetfishing:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ghostnet
+      SPRING_DATASOURCE_USERNAME: ghostnet
+      SPRING_DATASOURCE_PASSWORD: geheim
+    ports:
+      - '8082:8080'
+    depends_on:
+      ghostnet-db:
+        condition: service_healthy
+    networks:
+      - ghostnet
+
+networks:
+  ghostnet:
+
+volumes:
+  ghostnet-db-data:
