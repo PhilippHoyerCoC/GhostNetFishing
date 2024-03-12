@@ -23,9 +23,12 @@ chance of problems because of the local setup.
 
 # Steps for setting up the project:
 
+## Create the docker network: \
+docker network create ghostnet
+
 ## Start up the database container: \
 docker run -p 3307:3306 --name=ghostnet-db --network=ghostnet -e MYSQL_ROOT_PASSWORD=geheim 
--e MYSQL_USER=ghostnet -e MYSQL_PASSWORD=geheim -e MYSQL_DATABASE=ghostnet -d mysql/mysql-server:latest
+-e MYSQL_USER=ghostnet -e MYSQL_PASSWORD=geheim -e MYSQL_DATABASE=ghostnet -d mysql/mysql-server:8.0.32
 
 In case the port 3307 is already used on the target machine change the port in the docker run
 command and adjust the port in the JdbcUrl of the tomee.xml provided below!
@@ -43,14 +46,14 @@ If you don't have mysql configured on your machine you can log in into the conta
 <tomee>
   <Resource id="MyDataSource" type="DataSource">
       JdbcDriver com.mysql.cj.jdbc.Driver
-      JdbcUrl jdbc:mysql://localhost:3307/ghostnet
+      JdbcUrl jdbc:mysql://localhost:3306/ghostnet
       UserName ghostnet
       Password geheim
       JtaManaged true
   </Resource>
 </tomee>
 ```
-- Add mysql-connector-j-8.1.0.jar (adhered in the project root directory) to lib of tomee
+- Add mysql-connector-j-8.1.0.jar (adhered in the project config directory) to lib of tomee
 
 ## Start application:
 The application was developed with Intellij. When you have the tomee server installed and configured properly as shown below you can set the tomee server as runtime. 

@@ -19,7 +19,7 @@
       <h2>Report A Ghostnet</h2>
       <h:form>
          Coordinates: <h:inputText id="latitude" value="#{ghostNetDAO.ghostNet.coordinates.latitude}" converter="ghostNetCoordinatesConverter"/> <h:inputText id="longitude" value="#{ghostNetDAO.ghostNet.coordinates.longitude}" converter="ghostNetCoordinatesConverter"/> <br/>
-         Ghostnet Size [㎡]: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" validator="ghostNetSizeValidator" /> <br/>
+         Ghostnet Size [㎡]: <h:inputText id="size" value="#{ghostNetDAO.ghostNet.size}" converter="ghostNetSizeConverter" /> <br/>
          Status: <h:selectOneMenu value="#{ghostNetDAO.ghostNet.status}">
                      <f:selectItems value="#{ghostNetDAO.statusValues}" />
                   </h:selectOneMenu> <br/>
